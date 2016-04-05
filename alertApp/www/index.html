@@ -58,18 +58,14 @@
 		document.addEventListener("deviceready", onDeviceReady, false);  
 		function onDeviceReady() {
                 alert('hi nagesh');      
-			    pushNotification = window.plugins.pushNotification;                
-				pushNotification.register(
-					tokenHandler,
-					errorHandler,
-					{
-						"badge":"true",
-						"sound":"true",
-						"alert":"true",
-						"ecb":"onNotificationAPN"
-					}
-				);
-		}
+			    pushNotification = window.plugins.pushNotification; 			    
+			    if (device.platform == 'android' || device.platform == 'Android' || device.platform == 'amazon-fireos' ) {
+						 pushNotification.register(tokenHandler, errorHandler, {"senderID":"661780372179","ecb":"onNotification"});		// required!
+					} else {
+                    	pushNotification.register(tokenHandler, errorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});	// required!
+                	}
+        }
+        
 		// Handle push token result
 		function tokenHandler (result) {
 			// Your iOS push server needs to know the token before it can push to this device
