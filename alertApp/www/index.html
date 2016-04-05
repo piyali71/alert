@@ -51,14 +51,33 @@
         </div>
     </div>
     <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="PushNotification.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
-        app.initialize();
-		
+       //app.initialize();
 		document.addEventListener("deviceready", onDeviceReady, false);  
 		function onDeviceReady() {
-               alert('h');
-      }
+                alert('hi nagesh');      
+			    pushNotification = window.plugins.pushNotification;                
+				pushNotification.register(
+					tokenHandler,
+					errorHandler,
+					{
+						"badge":"true",
+						"sound":"true",
+						"alert":"true",
+						"ecb":"onNotificationAPN"
+					}
+				);
+		}
+		// Handle push token result
+		function tokenHandler (result) {
+			// Your iOS push server needs to know the token before it can push to this device
+			// here is where you might want to send it the token for later use.
+			alert('device token = ' + result);
+
+			//getMyUi(result);              
+		}
     </script>
 </body>
 
